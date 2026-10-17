@@ -3,6 +3,7 @@ terraform {
 }
 
 inputs = {
+  env = "dev"
   name           = "name"
 
   tags = {
