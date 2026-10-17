@@ -9,8 +9,6 @@ include "envcommon" {
 inputs = {
   name          = "dev-app-server"
   instance_type = "t3.small"
-  ami = "ami...."
-  monitoring = ""
 
   tags = {
     Environment = "dev"
