@@ -1,5 +1,5 @@
 resource "aws_subnet" "private" {
-  count = length(var.private_subnets)
+  count = length(var.private_subnets) # from 08-variables.tf -> infra-03/dev/vpc/terragrunt.hcl
 
   vpc_id = aws_vpc.this.id
   cidr_block = var.private_subnets[count.index]
