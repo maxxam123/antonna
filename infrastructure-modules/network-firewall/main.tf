@@ -1,8 +1,3 @@
-# infrastructure-modules/network-firewall/main.tf
-
-# --------------------------------------------------------------------------------------------------
-# 1. CENTRALIZED SECURITY AUDITING & FORENSIC LOGGING BINDING
-# --------------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_log_group" "nfw_logs" {
   name              = var.log_group_name
   retention_in_days = var.log_retention_in_days
@@ -12,9 +7,6 @@ resource "aws_cloudwatch_log_group" "nfw_logs" {
   })
 }
 
-# --------------------------------------------------------------------------------------------------
-# 2. CORE POLICY DEFINITION ENGINE (Stateless and Stateful rule hooks)
-# --------------------------------------------------------------------------------------------------
 resource "aws_networkfirewall_firewall_policy" "this" {
   name = "${var.prefix}-${var.environment}-nfw-policy"
 
@@ -34,9 +26,6 @@ resource "aws_networkfirewall_firewall_policy" "this" {
   tags = var.global_tags
 }
 
-# --------------------------------------------------------------------------------------------------
-# 3. AWS NETWORK FIREWALL INSTANCE (Symmetrically deployed via subnet maps)
-# --------------------------------------------------------------------------------------------------
 resource "aws_networkfirewall_firewall" "this" {
   name                = "${var.prefix}-${var.environment}-nfw"
   vpc_id              = var.vpc_id
@@ -58,9 +47,6 @@ resource "aws_networkfirewall_firewall" "this" {
   )
 }
 
-# --------------------------------------------------------------------------------------------------
-# 4. LOGGING CONFIGURATION ATTACHMENT
-# --------------------------------------------------------------------------------------------------
 resource "aws_networkfirewall_logging_configuration" "this" {
   firewall_arn = aws_networkfirewall_firewall.this.arn
 
