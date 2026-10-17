@@ -23,3 +23,13 @@ variable "public_subnets" {
   description = "public subnet name"
   type = list(string)
 }
+
+variable "private_subnet_tags" {
+  description = "private subnet tags"
+  type = may(any)
+}
+
+variable "public_subnet_tags" {
+  description = "public subnet tags"
+  type = may(any)
+}
