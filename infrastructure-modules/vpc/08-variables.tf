@@ -8,3 +8,18 @@ variable "vpc_cidr_block" {
   type = string
   default = "10.0.0.0/16"
 }
+
+variable "azs" {
+  description = "azs name"
+  type = list(string)
+}
+
+variable "private_subnets" {
+  description = "private subnet name"
+  type = list(string)
+}
+
+variable "public_subnets" {
+  description = "public subnet name"
+  type = list(string)
+}
