@@ -13,7 +13,7 @@ include "envcommon" {
 
 # 3. Dynamic dependency mapping to fetch the global WAF ARN securely
 dependency "waf" {
-  config_path = "../../security/waf-cloudfront"
+  config_path = "../../_global/security/waf-gl"
 }
 
 # 4. Inject development-specific routing and origin endpoints
