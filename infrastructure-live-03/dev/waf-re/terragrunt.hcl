@@ -13,11 +13,12 @@ include "envcommon" {
 
 # 3. Establish strict execution order dependency to fetch your live ALB endpoint
 dependency "alb" {
-  config_path = "../../network/alb"
+  config_path = "../../network/ALB_NAME"
 }
 
 # 4. Bind parameters and map the outputs cleanly
 inputs = {
+  prefix      = "NAME"
   environment = "dev"
   aws_region  = include.root.inputs.aws_region # Sits in the exact same region as your ALB
 
