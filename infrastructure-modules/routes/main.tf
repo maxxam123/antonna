@@ -33,7 +33,7 @@ resource "aws_route" "north_south_egress" {
 
 # Rule B: East-West Enterprise Transit Gateway Mesh Backbone
 resource "aws_route" "transit_gateway_backhaul" {
-  for_each = var.availability_zones
+  for_each = var.availability_zones  # count = length(var.vpc_cidr_variants) * (var.create_vpc ? 1 : 0)
 
   route_table_id         = aws_route_table.private[each.key].id
   destination_cidr_block = var.corporate_supernet_cidr # e.g., "192.168.0.0/16" or "10.0.0.0/8"
