@@ -1,6 +1,14 @@
 # 1. Fetch GitHub's OIDC TLS Certificate Thumbprint dynamically
-data "aws_iam_openid_connect_provider" "github" {
-  url = "https://githubusercontent.com"
+# data "aws_iam_openid_connect_provider" "github" {
+#  url = "https://githubusercontent.com"
+# }
+
+resource "aws_iam_openid_connect_provider" "github" {
+  url             = "https://token.actions.githubusercontent.com"
+  client_id_list  = ["sts.amazonaws.com"]
+  
+  # Completely valid for GitHub OIDC now; prevents rotation breakdown bugs
+  thumbprint_list = ["ffffffffffffffffffffffffffffffffffffffff"] 
 }
 
 # (Optional) If you don't want to fetch it dynamically, uncomment this resource:
@@ -16,9 +24,11 @@ data "aws_iam_policy_document" "github_oidc_assume" {
     effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
+
     principals {
       type        = "Federated"
-      identifiers = [data.aws_iam_openid_connect_provider.github.arn]
+     # identifiers = [data.aws_iam_openid_connect_provider.github.arn]
+      identifiers = [aws_iam_openid_connect_provider.github.github.arn]
     }
 
     # Restrict token access strictly to your GitHub organization and repositories
